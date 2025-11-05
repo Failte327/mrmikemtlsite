@@ -1,0 +1,534 @@
+{
+  "data": [
+    {
+      "id": "265946916",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 1,
+        "misc": null,
+        "username": "Denis_SMOG",
+        "final_rank": 2,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "Denis_SMOG",
+        "timestamps": {
+          "created_at": "2025-06-25T01:16:03.637Z",
+          "updated_at": "2025-06-25T01:16:03.637Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "6148551",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266035761",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 2,
+        "misc": null,
+        "username": "ThaGrinchyUNO",
+        "final_rank": 7,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "ThaGrinchyUNO",
+        "timestamps": {
+          "created_at": "2025-06-26T01:28:16.974Z",
+          "updated_at": "2025-06-26T01:31:07.313Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "4449423",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266014455",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 3,
+        "misc": null,
+        "username": "BFRjonathan",
+        "final_rank": 4,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "BFRjonathan",
+        "timestamps": {
+          "created_at": "2025-06-25T21:07:35.297Z",
+          "updated_at": "2025-06-26T01:31:24.073Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "4949148",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266007385",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 4,
+        "misc": null,
+        "username": "GoDRieN",
+        "final_rank": 5,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "GoDRieN",
+        "timestamps": {
+          "created_at": "2025-06-25T18:54:06.657Z",
+          "updated_at": "2025-06-25T18:54:06.657Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "4514588",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "265951109",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 5,
+        "misc": null,
+        "username": "xHyui",
+        "final_rank": 5,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "xHyui",
+        "timestamps": {
+          "created_at": "2025-06-25T02:43:23.192Z",
+          "updated_at": "2025-06-26T01:31:24.079Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "7563511",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266027470",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 6,
+        "misc": null,
+        "username": "psjwandao",
+        "final_rank": 9,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "psjwandao",
+        "timestamps": {
+          "created_at": "2025-06-25T23:50:47.070Z",
+          "updated_at": "2025-06-25T23:50:47.070Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "5952272",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266035483",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 7,
+        "misc": null,
+        "username": "Glaive_wc3",
+        "final_rank": 9,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "Glaive_wc3",
+        "timestamps": {
+          "created_at": "2025-06-26T01:23:11.626Z",
+          "updated_at": "2025-06-26T01:31:11.534Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "5546754",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266033199",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 8,
+        "misc": null,
+        "username": "SitioGooo",
+        "final_rank": 7,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "SitioGooo",
+        "timestamps": {
+          "created_at": "2025-06-26T00:41:56.105Z",
+          "updated_at": "2025-06-26T00:41:56.105Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "6508078",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "265999792",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 9,
+        "misc": null,
+        "username": "YoungsterW3c",
+        "final_rank": 9,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "YoungsterW3c",
+        "timestamps": {
+          "created_at": "2025-06-25T16:32:44.532Z",
+          "updated_at": "2025-06-26T01:31:17.952Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "7545949",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266035183",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 10,
+        "misc": null,
+        "username": "Jenekrs",
+        "final_rank": 1,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "Jenek",
+        "timestamps": {
+          "created_at": "2025-06-26T01:16:37.769Z",
+          "updated_at": "2025-06-26T01:16:37.769Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "6657489",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266030823",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 11,
+        "misc": null,
+        "username": "Tristan_Tristan",
+        "final_rank": 3,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "Tristan_Tristan",
+        "timestamps": {
+          "created_at": "2025-06-26T00:05:44.226Z",
+          "updated_at": "2025-06-26T01:31:11.525Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "6389392",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266033649",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 12,
+        "misc": null,
+        "username": "Herod__",
+        "final_rank": 9,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "Herod_08",
+        "timestamps": {
+          "created_at": "2025-06-26T00:48:52.970Z",
+          "updated_at": "2025-06-26T01:31:07.302Z"
+        },
+        "states": {
+          "active": true
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "7573988",
+            "type": "user"
+          }
+        }
+      }
+    },
+    {
+      "id": "266021810",
+      "type": "participant",
+      "attributes": {
+        "icon": null,
+        "seed": 13,
+        "misc": null,
+        "username": "OLDKY0",
+        "final_rank": null,
+        "group_id": null,
+        "tournament_id": 16418373,
+        "name": "OLDKY0",
+        "timestamps": {
+          "created_at": "2025-06-25T22:53:13.298Z",
+          "updated_at": "2025-06-25T22:53:13.298Z"
+        },
+        "states": {
+          "active": false
+        }
+      },
+      "relationships": {
+        "invitation": {
+          "data": null
+        },
+        "user": {
+          "data": {
+            "id": "7002978",
+            "type": "user"
+          }
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "6148551",
+      "type": "user",
+      "attributes": {
+        "username": "Denis_SMOG",
+        "image_url": "https://user-assets.challonge.com/users/images/006/148/551/hdpi/IMG-20231009-WA0016.png"
+      }
+    },
+    {
+      "id": "4449423",
+      "type": "user",
+      "attributes": {
+        "username": "ThaGrinchyUNO",
+        "image_url": "https://user-assets.challonge.com/users/images/004/449/423/hdpi/grinch_profile_pic.png"
+      }
+    },
+    {
+      "id": "4949148",
+      "type": "user",
+      "attributes": {
+        "username": "BFRjonathan",
+        "image_url": "https://user-assets.challonge.com/users/images/004/949/148/hdpi/323422789_1269064363652648_7775921517716539589_n.png"
+      }
+    },
+    {
+      "id": "4514588",
+      "type": "user",
+      "attributes": {
+        "username": "GoDRieN",
+        "image_url": "https://user-assets.challonge.com/users/images/004/514/588/hdpi/BTNMilitia-Reforged.png"
+      }
+    },
+    {
+      "id": "7563511",
+      "type": "user",
+      "attributes": {
+        "username": "xHyui",
+        "image_url": "https://user-assets.challonge.com/users/images/007/563/511/hdpi/Shigekuni_Yamamoto__1.png"
+      }
+    },
+    {
+      "id": "5952272",
+      "type": "user",
+      "attributes": {
+        "username": "psjwandao",
+        "image_url": "https://user-assets.challonge.com/users/images/005/952/272/hdpi/psjwandao_undead_2.png"
+      }
+    },
+    {
+      "id": "5546754",
+      "type": "user",
+      "attributes": {
+        "username": "Glaive_wc3",
+        "image_url": "https://user-assets.challonge.com/misc/challonge_fireball_gray.png"
+      }
+    },
+    {
+      "id": "6508078",
+      "type": "user",
+      "attributes": {
+        "username": "SitioGooo",
+        "image_url": "https://user-assets.challonge.com/misc/challonge_fireball_gray.png"
+      }
+    },
+    {
+      "id": "7545949",
+      "type": "user",
+      "attributes": {
+        "username": "YoungsterW3c",
+        "image_url": "https://user-assets.challonge.com/misc/challonge_fireball_gray.png"
+      }
+    },
+    {
+      "id": "6657489",
+      "type": "user",
+      "attributes": {
+        "username": "Jenekrs",
+        "image_url": "https://user-assets.challonge.com/misc/challonge_fireball_gray.png"
+      }
+    },
+    {
+      "id": "6389392",
+      "type": "user",
+      "attributes": {
+        "username": "Tristan_Tristan",
+        "image_url": "https://user-assets.challonge.com/users/images/006/389/392/hdpi/IMG-20170708-WA0006.png"
+      }
+    },
+    {
+      "id": "7573988",
+      "type": "user",
+      "attributes": {
+        "username": "Herod__",
+        "image_url": "https://user-assets.challonge.com/misc/challonge_fireball_gray.png"
+      }
+    },
+    {
+      "id": "7002978",
+      "type": "user",
+      "attributes": {
+        "username": "OLDKY0",
+        "image_url": "https://user-assets.challonge.com/users/images/007/002/978/hdpi/359842021_677097980904805_5763522333919109758_n.png"
+      }
+    }
+  ],
+  "meta": {
+    "count": 13
+  },
+  "links": {
+    "self": "https://api.challonge.com/v2.1/communities/showmatchfriday/tournaments/16418373/participants.json?page=1&per_page=100",
+    "next": "https://api.challonge.com/v2.1/communities/showmatchfriday/tournaments/16418373/participants.json?page=2&per_page=100",
+    "prev": "https://api.challonge.com/v2.1/communities/showmatchfriday/tournaments/16418373/participants.json?page=0&per_page=100"
+  }
+}

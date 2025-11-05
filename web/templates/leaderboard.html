@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRMIKEMTL</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/output.css')}}">
+</head>
+
+<body>
+     <nav class="px-2 sm:px-4 py-2.50">
+        <div class="container flex flex-wrap items-center justify-between mx-auto">
+            <a href="/" class="flex items-center">
+                <img src="../static/dist/beard_logo.jpg" class="h-6 mr-3 sm:h-9">
+                <span class="self-center text-xl font-semibold whitespace-nowrap">MRMIKEMTL</span>
+            </a>
+            <div class="flex md:order-2">
+                <button type="button"
+                    class="text-white bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"><a href="/login">Login</a></button>
+                <button data-collapse-toggle="navbar-cta" type="button"
+                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                    aria-controls="navbar-cta" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+                <ul
+                    class="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+                    <li>
+                        <a href="/"
+                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">Home</a>
+                    </li>
+                    <li>
+                        <a href="/leaderboard"
+                            class="block py-2 pl-3 pr-4 text-lg text-white bg-blue-700 rounded-sm md:bg-transparent md:text-purple-500 md:p-0"
+                            aria-current="page">Leaderboard</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/events"
+                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">Past Events</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen w-full place-items-center">
+    <table class="table-fixed mx-auto w-350 text-white p-200 box-border size-32 border-4 justify-items-center border-black self-center">
+            <caption class="p-5 text-xl font-semibold text-center text-white justify-center">
+            SMF Total Tournament Points Leaderboard
+        </caption>
+        <thead class="w-full text-xs text-white uppercase">
+            <tr>
+                <th scope="col" class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    Rank
+                </th>
+                <th scope="col"class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    Points
+                </th>
+            </tr>
+        </thead>
+        {% for row in data %}
+        <tbody>
+            <tr class="p-4 text-lg font-semibold w-full text-center">
+                <th scope="row" class="text-white bg-gray-500/65 box-border border-3 border-black" >
+                    {{ row.rank }}
+                </th>
+                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    {{ row.name }}
+                </td>
+                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    {{ row.total_points}}
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+</table>
+<!-- Navigation bar for pagination -->
+<div class="flex mx-auto justify-center items-center space-x-2 bg-white w-350 border-r-4 border-black border-l-4">
+    {% for page in pages %}
+        <a href="/leaderboard?page={{ page }}" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black rounded-lg hover:bg-gray-500 focus:ring-4 focus:bg-gray-500">
+        {{ page }}
+        </a>
+    {% endfor %}
+</div>
+</div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+
+</html>
