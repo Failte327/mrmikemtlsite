@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 echo "Running tournament data gathering script..."
 python3 tournament_data_gather.py
 
