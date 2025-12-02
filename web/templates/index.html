@@ -11,7 +11,7 @@
 
 <body>
     <nav class="px-2 sm:px-4 py-2.50">
-        <div class="container flex flex-wrap items-center justify-between mx-auto">
+        <div class="container flex flex-wrap place-items-center justify-between mx-auto max-w-screen">
             <a href="/" class="flex items-center">
                 <img src="../static/dist/beard_logo.jpg" class="h-6 mr-3 sm:h-9">
                 <span class="self-center text-xl font-semibold whitespace-nowrap">MRMIKEMTL</span>
@@ -51,9 +51,9 @@
             </div>
         </div>
     </nav>
-    <div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen">
-<div class="inline-flex mt-10">
-<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800 mr-5 ml-150">
+    <div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen w-full max-w-screen place-items-center flex items-center justify-center">
+<div class="inline-flex max-w-screen">
+<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 sm:w-25 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
     <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">Upcoming Tournaments</h3>
     {% for tournament in upcoming_tournaments %}
     <figure class="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
@@ -63,7 +63,7 @@
     </figure>
     {% endfor %}
 </div>
-<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
+<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 sm:w-25 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
     <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">Community Links</h3>
     <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
         <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">

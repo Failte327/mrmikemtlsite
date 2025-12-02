@@ -4,13 +4,13 @@ import json
 
 app = Flask(__name__)
 
-dbsession = sqlalchemy.create_engine("sqlite:///../smf_tournaments_database.sqlite3").connect()
+dbsession = sqlalchemy.create_engine("sqlite:///mrmikemtlsite/smf_tournaments_database.sqlite3").connect()
 
 @app.route("/")
 @app.route("/index")
 def index():
 	upcoming_tournaments = []
-	with open("../upcoming_tournaments.txt", "r") as upcoming_file:
+	with open("mrmikemtlsite/upcoming_tournaments.txt", "r") as upcoming_file:
 		list = upcoming_file.readlines()
 		for i in list:
 			if i != "":
@@ -124,4 +124,4 @@ def login():
 	return render_template("login.html")
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
