@@ -123,5 +123,9 @@ def login():
 	# LOGIN NOT IMPLEMENTED YET
 	return render_template("login.html")
 
+@app.route("/point_system")
+def point_system():
+	return render_template("points_breakdown.html")
+
 if __name__ == '__main__':
 	app.run()
