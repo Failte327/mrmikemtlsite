@@ -127,5 +127,27 @@ def login():
 def point_system():
 	return render_template("points_breakdown.html")
 
+@app.route("/upcoming")
+def upcoming():
+	upcoming_tournaments = []
+	with open("mrmikemtlsite/upcoming_tournaments.txt", "r") as upcoming_file:
+		list = upcoming_file.readlines()
+		for i in list:
+			if i != "":
+				new_list = i.split("|")
+				tournament = []
+				string_1 = new_list[0] + "| "
+				string_2 = new_list[1]
+				string_3_list = new_list[2].split("https://")
+				string_3 = string_3_list[0]
+				string_4 = string_3_list[1]
+				tournament.append(string_1)
+				tournament.append(string_2)
+				tournament.append(string_3)
+				tournament.append(string_4)
+				upcoming_tournaments.append(tournament)
+
+	return render_template("upcoming.html", upcoming_tournaments=upcoming_tournaments)
+
 if __name__ == '__main__':
 	app.run()

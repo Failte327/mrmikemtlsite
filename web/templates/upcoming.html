@@ -50,7 +50,7 @@
                     
                     <li>
                         <a href="/point_system"
-                            class="block py-2 pl-3 pr-4 text-lg text-white bg-blue-700 rounded-sm md:bg-transparent md:text-purple-500 md:p-0"
+                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 hover:bg-gray-100 md:hover:text-purple-500 rounded-sm md:bg-transparent md:p-0"
                             aria-current="page">SMF Point System</a>
                     </li>
                 </ul>
@@ -61,17 +61,15 @@
 
 <div class="inline-flex max-w-screen">
 <div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 sm:w-25 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">SMF Point System</h3>
-    <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">Upcoming Tournaments</h3>
+    {% for tournament in upcoming_tournaments %}
+    <figure class="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
         <blockquote class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
-		<p class="my-4">Tournament Champion: 100 points</p><br>
-		<p class="my-4">Tournament Runner-up: 70 points</p><br>
-		<p class="my-4">Top 4: 40 points</p><br>
-		<p class="my-4">Top 8: 25 points</p><br>
-		<p class="my-4">Top 16: 15 points</p><br>
-		<p class="my-4">All other placements: 10 points</p><br>
+            <p class="my-4">{{ tournament[0] }}{{ tournament[1] }} <br><br> {{ tournament[2] }} <a href="{{ 'https://' + tournament[3] }}"class="text-blue-500">{{ tournament[3] }}</a></p>
         </blockquote> 
     </figure>
+    {% endfor %}
+</div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
