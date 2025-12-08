@@ -33,7 +33,7 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                 <ul
-                    class="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+                    class="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:">
                     
                     <li>
                         <a href="/"
@@ -60,10 +60,10 @@
     <div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen w-full max-w-screen place-items-center flex items-center justify-center">
 
 <div class="inline-flex max-w-screen">
-<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 sm:w-25 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">Upcoming Tournaments</h3>
+<div class="grid mb-8 border mx-auto p-7  w-100 sm:w-25 rounded-lg shadow-xs border-gray-700 md:mb-12 md:grid-cols-1  bg-gray-800">
+    <h3 class="text-xl font-semibold  text-white text-center">Upcoming Tournaments</h3>
     {% for tournament in upcoming_tournaments %}
-    <figure class="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="flex flex-col items-center justify-center p-8 text-center  border-b  rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
             <p class="my-4">{{ tournament[0] }}{{ tournament[1] }} <br><br> {{ tournament[2] }} <a href="{{ 'https://' + tournament[3] }}"class="text-blue-500">{{ tournament[3] }}</a></p>
         </blockquote> 
