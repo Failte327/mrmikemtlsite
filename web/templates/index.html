@@ -57,17 +57,17 @@
     </nav>
     <div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen w-full max-w-screen place-items-center flex items-center justify-center">
 <div class="inline-flex max-w-screen">
-<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 sm:w-25 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">Upcoming Tournaments</h3>
+<div class="grid mb-8 border mx-auto p-7 w-100 sm:w-25 rounded-lg shadow-xs border-gray-700 md:mb-12 md:grid-cols-1 bg-gray-800">
+    <h3 class="text-xl font-semibold text-white text-center">Upcoming Tournaments</h3>
     {% for tournament in upcoming_tournaments %}
     {% if loop.index < 4 %}
-    <figure class="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="flex flex-col items-center justify-center p-8 text-center border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
             <p class="my-4">{{ tournament[0] }}{{ tournament[1] }} <br><br> {{ tournament[2] }} <a href="{{ 'https://' + tournament[3] }}"class="text-blue-500">{{ tournament[3] }}</a></p>
         </blockquote> 
     </figure>
     {% else %} 
-    <figure class="hidden flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="hidden flex flex-col items-center justify-center p-8 text-center border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
             <p class="my-4">{{ tournament[0] }}{{ tournament[1] }} <br><br> {{ tournament[2] }} <a href="{{ 'https://' + tournament[3] }}"class="text-blue-500">{{ tournament[3] }}</a></p>
         </blockquote> 
@@ -78,29 +78,29 @@
     <a href="/upcoming" class="text-white underline text-center">See More</a>
     {% endif %}
 </div>
-<div class="grid mb-8 border mx-auto p-7 border-gray-200 w-100 sm:w-25 rounded-lg shadow-xs dark:border-gray-700 md:mb-12 md:grid-cols-1 bg-white dark:bg-gray-800">
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">Community Links</h3>
-    <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+<div class="grid mb-8 border mx-auto p-7 w-100 sm:w-25 rounded-lg shadow-xs border-gray-700 md:mb-12 md:grid-cols-1 bg-gray-800">
+    <h3 class="text-xl font-semibold text-white text-center">Community Links</h3>
+    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
             <img src="../static/dist/discord.svg" class="h-6 mr-3 sm:h-9"><a href="https://discord.gg/uxWJRgnDt5">Show Match Friday Discord</a>
         </blockquote> 
     </figure>
-    <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
             <img src="../static/dist/twitch.svg" class="h-6 mr-3 sm:h-9"><a href="https://www.twitch.tv/mrmikemtl">MRMIKEMTL Twitch</a>
         </blockquote> 
     </figure>
-    <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
             <img src="../static/dist/youtube.svg" class="h-6 mr-3 sm:h-9"><a href="https://www.youtube.com/@mrmikemtl">MRMIKEMTL Youtube</a>
         </blockquote> 
     </figure>
-    <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
             <img src="../static/dist/x.svg" class="h-6 mr-3 sm:h-9"><a href="https://x.com/mrmikeMTL">MRMIKEMTL X</a>
         </blockquote> 
     </figure>
-    <figure class="flex flex-col p-8 bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
+    <figure class="flex flex-col p-8  border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
         <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
             <img src="../static/dist/tiktok.svg" class="h-6 mr-3 sm:h-9 self-center"><a href="https://www.tiktok.com/@showmatchfriday">Show Match Friday Tiktok</a>
         </blockquote> 
