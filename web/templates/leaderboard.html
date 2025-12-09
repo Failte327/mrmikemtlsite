@@ -74,6 +74,9 @@
                 <th scope="col" class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
                     Points
                 </th>
+                <th scope="col" class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    Record
+                </th>
             </tr>
         </thead>
         {% for row in data %}
@@ -87,6 +90,9 @@
                 </td>
                 <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
                     {{ row.total_points}}
+                </td>
+                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    {{ row.record}}
                 </td>
             </tr>
         </tbody>

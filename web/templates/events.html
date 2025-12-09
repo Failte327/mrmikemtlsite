@@ -65,7 +65,7 @@
         <tbody>
             <tr class="p-4 text-lg font-semibold w-full text-center">
                 <td scope="row" class="px-6 py-4 p-20 bg-gray-500/65 box-border border-3 border-black">
-                    <a href="/events?event={{ row.name }}" class="text-white underline">{{ row.name.split("-")[0] }}</a>
+                    <a href="/events?event={{ row.name }}" class="text-white underline">{{ row.name.split("-")[0].replace("_", " ") }}</a>
                 </td>
             </tr>
         </tbody>
@@ -82,7 +82,7 @@
 <div class="mx-auto w-200">
     <table class="table-auto w-full text-white p-200 box-border size-32 border-4 justify-items-center border-black self-center">
             <caption class="p-5 text-xl font-semibold text-center text-white justify-center">
-            {{ request.args.get("event").split("-")[0] }}
+            {{ request.args.get("event").split("-")[0].replace("_", " ") }}
         </caption>
         <thead class="w-full text-xs text-white uppercase">
             <tr>
@@ -92,16 +92,22 @@
                 <th scope="col"class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
                     Name
                 </th>
+                <th scope="col"class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    Record
+                </th>
             </tr>
         </thead>
-        {% for key, val in tournament_data.items() %}
+        {% for player in tournament_data %}
         <tbody>
             <tr class="p-4 text-lg font-semibold w-full text-center">
                 <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    {{ val }}
+                    {{ player.rank }}
                 </td>
                 <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    {{ key }}
+                    {{ player.name }}
+                </td>
+                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
+                    {{ player.record }}
                 </td>
             </tr>
         </tbody>

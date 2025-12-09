@@ -34,7 +34,7 @@ def index():
 
 @app.route("/leaderboard")
 def leaderboard():
-	raw_data = dbsession.exec_driver_sql("SELECT name, total_points from participants ORDER BY total_points desc;").all()
+	raw_data = dbsession.exec_driver_sql("SELECT name, total_points, user_id from participants ORDER BY total_points desc;").all()
 	data = []
 	page_size = 30
 	total = len(raw_data)
@@ -51,12 +51,41 @@ def leaderboard():
 	i = 1
 	for record in raw_data:
 		if i >= starting_spot and len(data) < page_size:
-			data_obj = {
-				"rank": i,
-				"name": record.name,
-				"total_points": record.total_points
-			}
-			data.append(data_obj)
+			if record is not None:
+				if record.user_id is not None:
+					db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_1_id = {record.user_id};").all()
+					db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_2_id = {record.user_id};").all()
+					wins = 0
+					losses = 0
+					for w in db_data_1:
+						wins = wins + w.participant_1_points
+						losses = losses + w.participant_2_points
+					for n in db_data_2:
+						wins = wins + n.participant_2_points
+						losses = losses + n.participant_1_points
+					data_obj = {
+						"rank": i,
+						"name": record.name,
+						"total_points": record.total_points,
+						"record": f"{wins} - {losses}"
+					}
+					data.append(data_obj)
+				else:
+					data_obj = {
+						"rank": i,
+						"name": record.name,
+						"total_points": record.total_points,
+						"record": f"Unknown"
+					}
+					data.append(data_obj)
+			else:
+				data_obj = {
+						"rank": i,
+						"name": record.name,
+						"total_points": record.total_points,
+						"record": f"Unknown"
+				}
+				data.append(data_obj)
 		i = i + 1
 	
 	pages = []
@@ -115,8 +144,47 @@ def events():
 		for i in non_placers:
 			del tournament_data[i]
 		tournament_data = dict(sorted(tournament_data.items(), key=lambda item: item[1]))
+		data = []
+		for name, rank in tournament_data.items():
+			q = dbsession.exec_driver_sql(f"SELECT user_id FROM participants WHERE name = '{name}';").one_or_none()
+			if q is not None:
+				if q[0] is not None:
+					user_id = q[0]
+					event_id = dbsession.exec_driver_sql(f"SELECT tournament_id FROM tournaments WHERE name = '{event}';").one()[0]
+					db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_1_id = {user_id} AND tournament_id = {event_id};").all()
+					db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_2_id = {user_id} AND tournament_id = {event_id};").all()
+					wins = 0
+					losses = 0
+					for i in db_data_1:
+						wins = wins + i.participant_1_points
+						losses = losses + i.participant_2_points
+					for n in db_data_2:
+						wins = wins + n.participant_2_points
+						losses = losses + n.participant_1_points
+					if losses < 0:
+						losses = 0
+					display_obj = {
+						"rank": rank,
+						"name": name,
+						"record": f"{wins} - {losses}"
+					}
+					data.append(display_obj)
+				else:
+					display_obj = {
+					"rank": rank,
+					"name": name,
+					"record": f"Unknown"
+					}
+					data.append(display_obj)
+			else:
+				display_obj = {
+					"rank": rank,
+					"name": name,
+					"record": f"Unknown"
+				}
+				data.append(display_obj)
 		
-		return render_template("events.html", tournament_data=tournament_data)
+		return render_template("events.html", tournament_data=data)
 	
 @app.route("/login")
 def login():
