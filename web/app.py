@@ -217,5 +217,9 @@ def upcoming():
 
 	return render_template("upcoming.html", upcoming_tournaments=upcoming_tournaments)
 
+@app.route("/smf_league")
+def smf_league():
+	return render_template("smf_league.html")
+
 if __name__ == '__main__':
 	app.run()
