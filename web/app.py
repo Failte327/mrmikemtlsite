@@ -34,7 +34,7 @@ def index():
 
 @app.route("/leaderboard")
 def leaderboard():
-	raw_data = dbsession.exec_driver_sql("SELECT name, total_points, user_id from participants ORDER BY total_points desc;").all()
+	raw_data = dbsession.exec_driver_sql("SELECT name, total_points, user_id from participants2026 ORDER BY total_points desc;").all()
 	data = []
 	page_size = 30
 	total = len(raw_data)
@@ -53,8 +53,8 @@ def leaderboard():
 		if i >= starting_spot and len(data) < page_size:
 			if record is not None:
 				if record.user_id is not None:
-					db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_1_id = {record.user_id};").all()
-					db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_2_id = {record.user_id};").all()
+					db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches2026 WHERE participant_1_id = {record.user_id};").all()
+					db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches2026 WHERE participant_2_id = {record.user_id};").all()
 					wins = 0
 					losses = 0
 					for w in db_data_1:

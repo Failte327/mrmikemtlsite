@@ -8,7 +8,7 @@ tournaments_request = requests.get("https://api.challonge.com/v2.1/communities/s
 
 tournament_data = tournaments_request.json()["data"]
 
-existing_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments WHERE tournament_id IS NULL;").all()
+existing_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments2026 WHERE tournament_id IS NULL;").all()
 
 tournament_names = []
 
@@ -21,5 +21,5 @@ for tournament in tournament_data:
     
     for i in tournament_names:
         if i == name:
-            dbsession.exec_driver_sql(f"UPDATE tournaments SET tournament_id = {id} WHERE name = '{name}';")
+            dbsession.exec_driver_sql(f"UPDATE tournaments2026 SET tournament_id = {id} WHERE name = '{name}';")
             dbsession.commit()

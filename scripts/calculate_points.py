@@ -6,12 +6,12 @@ import sqlalchemy
 dbsession = sqlalchemy.create_engine("sqlite:///../smf_tournaments_database.sqlite3").connect()
 
 # CALCULATE POINTS CODE
-query = dbsession.exec_driver_sql(f"SELECT name, participants FROM tournaments;")
+query = dbsession.exec_driver_sql(f"SELECT name, participants FROM tournaments2026;")
 for record in query.all():
     participants = ast.literal_eval(record.participants)
     print(f"Calculating results for {record.name}...")
     for name, placement in participants.items():
-        participants_table_query = dbsession.exec_driver_sql(f"SELECT name FROM participants where name = '{name}';")
+        participants_table_query = dbsession.exec_driver_sql(f"SELECT name FROM participants2026 where name = '{name}';")
         if placement is None:
             added_points = 0
         elif placement == 1:
@@ -26,12 +26,12 @@ for record in query.all():
             added_points = 15
         else:
             added_points = 10
-        old_val = dbsession.exec_driver_sql(f"SELECT total_points FROM participants WHERE name = '{name}';").one_or_none()
+        old_val = dbsession.exec_driver_sql(f"SELECT total_points FROM participants2026 WHERE name = '{name}';").one_or_none()
         if old_val is None:
             new_val = 0 + added_points
-            dbsession.exec_driver_sql(f"UPDATE participants set total_points = {new_val} WHERE name = '{name}';")
+            dbsession.exec_driver_sql(f"UPDATE participants2026 set total_points = {new_val} WHERE name = '{name}';")
             dbsession.commit()
         else:
             new_val = old_val.total_points + added_points
-            dbsession.exec_driver_sql(f"UPDATE participants set total_points = {new_val} WHERE name = '{name}';")
+            dbsession.exec_driver_sql(f"UPDATE participants2026 set total_points = {new_val} WHERE name = '{name}';")
             dbsession.commit()

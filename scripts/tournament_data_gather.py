@@ -8,11 +8,16 @@ tournaments_request = requests.get("https://api.challonge.com/v2.1/communities/s
 
 tournament_data = tournaments_request.json()["data"]
 
-existing_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments;").all()
+old_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments;").all()
+
+existing_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments2026;").all()
 
 tournament_names = []
 
 for tourney in existing_tournaments:
+    tournament_names.append(tourney.name)
+
+for tourney in old_tournaments:
     tournament_names.append(tourney.name)
 
 for tournament in tournament_data:
@@ -38,7 +43,7 @@ for tournament in tournament_data:
                         participants[username] = placement
 
             stringified_dict = str(participants)
-            dbsession.exec_driver_sql(f"INSERT INTO tournaments (name, participants) VALUES ('{name}', " + f'"{stringified_dict}");')
+            dbsession.exec_driver_sql(f"INSERT INTO tournaments2026 (name, participants) VALUES ('{name}', " + f'"{stringified_dict}");')
             dbsession.commit()
 
 # Update upcoming_tournaments.txt

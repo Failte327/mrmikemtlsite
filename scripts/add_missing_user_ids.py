@@ -8,7 +8,7 @@ tournaments_request = requests.get("https://api.challonge.com/v2.1/communities/s
 
 tournament_data = tournaments_request.json()["data"]
 
-existing_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments;").all()
+existing_tournaments = dbsession.exec_driver_sql(f"SELECT name FROM tournaments2026;").all()
 
 tournament_names = []
 
@@ -28,8 +28,8 @@ for tournament in tournament_data:
         if participant.get("relationships") is not None:
             if participant.get("relationships").get("user") is not None:
                 user_id = participant.get("relationships").get("user").get("data").get("id")
-                query = dbsession.exec_driver_sql(f"SELECT name, user_id FROM participants WHERE name = '{name}';").all()
+                query = dbsession.exec_driver_sql(f"SELECT name, user_id FROM participants2026 WHERE name = '{name}';").all()
                 if len(query) == 0:
-                    dbsession.exec_driver_sql(f"INSERT INTO participants (name, total_points, user_id) VALUES ('{name}', 0, {user_id});")
+                    dbsession.exec_driver_sql(f"INSERT INTO participants2026 (name, total_points, user_id) VALUES ('{name}', 0, {user_id});")
                     dbsession.commit()
                     print(f"Added participant {name} with user_id {user_id} to the database.")
