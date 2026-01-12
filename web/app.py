@@ -98,7 +98,9 @@ def leaderboard():
 
 @app.route("/events")
 def events():
-	data = dbsession.exec_driver_sql("SELECT name FROM tournaments;").all()
+	data2025 = dbsession.exec_driver_sql("SELECT name FROM tournaments;").all()
+	data2026 = dbsession.exec_driver_sql("SELECT name FROM tournaments2026;").all()
+	data = data2025 + data2026
 
 	event = request.args.get("event")
 	if not event:
@@ -133,7 +135,14 @@ def events():
 
 		return render_template("events.html", data=data, pages=pages)
 	else:
-		query = dbsession.exec_driver_sql(f"SELECT participants FROM tournaments WHERE name = '{event}';").one()
+		is_2026 = False
+		query1 = dbsession.exec_driver_sql(f"SELECT participants FROM tournaments WHERE name = '{event}';").one_or_none()
+		if query1 is None:
+			query2 = dbsession.exec_driver_sql(f"SELECT participants FROM tournaments2026 WHERE name = '{event}';").one_or_none()
+			query = query2
+			is_2026 = True
+		else:
+			query = query1
 		raw_data = json.dumps(query[0])
 		tournament_data = eval(json.loads(raw_data))
 		non_placers = []
@@ -150,9 +159,14 @@ def events():
 			if q is not None:
 				if q[0] is not None:
 					user_id = q[0]
-					event_id = dbsession.exec_driver_sql(f"SELECT tournament_id FROM tournaments WHERE name = '{event}';").one()[0]
-					db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_1_id = {user_id} AND tournament_id = {event_id};").all()
-					db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_2_id = {user_id} AND tournament_id = {event_id};").all()
+					if is_2026 is False:
+						event_id = dbsession.exec_driver_sql(f"SELECT tournament_id FROM tournaments WHERE name = '{event}';").one()[0]
+						db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_1_id = {user_id} AND tournament_id = {event_id};").all()
+						db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches WHERE participant_2_id = {user_id} AND tournament_id = {event_id};").all()
+					else:
+						event_id = dbsession.exec_driver_sql(f"SELECT tournament_id FROM tournaments2026 WHERE name = '{event}';").one()[0]
+						db_data_1 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches2026 WHERE participant_1_id = {user_id} AND tournament_id = {event_id};").all()
+						db_data_2 = dbsession.exec_driver_sql(f"SELECT participant_1_points, participant_2_points FROM tournament_matches2026 WHERE participant_2_id = {user_id} AND tournament_id = {event_id};").all()
 					wins = 0
 					losses = 0
 					for i in db_data_1:
