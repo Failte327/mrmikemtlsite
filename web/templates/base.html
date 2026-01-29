@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MRMIKEMTL{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/output.css')}}">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1991085633112598" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-900">
+    <nav class="bg-white border-b border-gray-200 px-4 py-2.5">
+        <div class="container flex flex-wrap items-center justify-between mx-auto max-w-7xl">
+            <a href="/" class="flex items-center">
+                <img src="../static/dist/beard_logo.jpg" class="h-8 mr-3 rounded-full">
+                <span class="self-center text-xl font-bold tracking-tight text-gray-900">MRMIKEMTL</span>
+            </a>
+            <div class="flex md:order-2">
+                <a href="/login" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</a>
+                <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
+                    <li><a href="/" class="block py-2 px-3 {% if request.path == '/' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">Home</a></li>
+                    <li><a href="/leaderboard" class="block py-2 px-3 {% if request.path == '/leaderboard' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">SMF Leaderboard</a></li>
+                    <li><a href="/smf_league" class="block py-2 px-3 {% if request.path == '/smf_league' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">SMF League</a></li>
+                    <li><a href="/events" class="block py-2 px-3 {% if request.path == '/events' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-[url(cityscape.jpg)] bg-cover bg-fixed bg-center min-h-screen w-full flex flex-col items-center py-10">
+        <div class="w-full max-w-7xl px-4">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>

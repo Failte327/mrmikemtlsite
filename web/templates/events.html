@@ -1,128 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MRMIKEMTL</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='dist/output.css')}}">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1991085633112598"
-     crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <nav class="px-2 sm:px-4 py-2.50">
-        <div class="container flex flex-wrap items-center justify-between mx-auto">
-            <a href="/" class="flex items-center">
-                <img src="../static/dist/beard_logo.jpg" class="h-6 mr-3 sm:h-9">
-                <span class="self-center text-xl font-semibold whitespace-nowrap">MRMIKEMTL</span>
-            </a>
-            <div class="flex md:order-2">
-                <button type="button" class="text-white bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"><a href="/login">Login</a></button>
-                <button data-collapse-toggle="navbar-cta" type="button"
-                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                    aria-controls="navbar-cta" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-                <ul
-                    class="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
-                    <li>
-                        <a href="/"
-                            class="block py-2 pl-3 pr-4 text-lg bg-blue-700 rounded-sm md:bg-transparent text-gray-700 md:p-0 md:hover:text-purple-500"
-                            aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="/leaderboard"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">WC3 Leaderboard</a>
-                    </li>
-                    <li>
-                        <a href="/smf_league"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">SMF League</a>
-                    </li>
-                    <li>
-                        <a href="/events"
-                            class="block py-2 pl-3 pr-4 text-lg rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:text-purple-500 md:p-0">Tournament Archive</a>
-                    </li>
-                    <li>
-                        <a href="/point_system"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">SMF Point System</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen w-full place-items-center">
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
     {% if data %}
-    <div class="mx-auto w-200">
-    <table class="table-fixed w-full text-white p-200 box-border size-32 border-4 justify-items-center border-black self-center">
-            <caption class="p-5 text-xl font-semibold text-center text-white justify-center">
-            Show Match Friday All-Time Tournament Archive
-        </caption>
-        {% for row in data %}
-        <tbody>
-            <tr class="p-4 text-lg font-semibold w-full text-center">
-                <td scope="row" class="px-6 py-4 p-20 bg-gray-500/65 box-border border-3 border-black">
-                    <a href="/events?event={{ row.name }}" class="text-white underline">{{ row.name.split("-")[0].replace("_", " ") }}</a>
-                </td>
-            </tr>
-        </tbody>
-        {% endfor %}
-</table>
-<!-- Navigation bar for pagination -->
-<div class="flex justify-center items-center space-x-2 bg-white w-200 border-r-4 border-black border-l-4">
-{% for page in pages %}
-    <a href="/events?page={{ page }}" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black rounded-lg hover:bg-gray-500 focus:ring-4 focus:bg-gray-500">
-    {{ page }}
-    </a>
-{% endfor %}
-{% elif tournament_data %}
-<div class="mx-auto w-200">
-    <table class="table-auto w-full text-white p-200 box-border size-32 border-4 justify-items-center border-black self-center">
-            <caption class="p-5 text-xl font-semibold text-center text-white justify-center">
-            {{ request.args.get("event").split("-")[0].replace("_", " ") }}
-        </caption>
-        <thead class="w-full text-xs text-white uppercase">
-            <tr>
-                <th scope="col" class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    Rank
-                </th>
-                <th scope="col"class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    Name
-                </th>
-                <th scope="col"class="px-6 py-3 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    Record
-                </th>
-            </tr>
-        </thead>
-        {% for player in tournament_data %}
-        <tbody>
-            <tr class="p-4 text-lg font-semibold w-full text-center">
-                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    {{ player.rank }}
-                </td>
-                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    {{ player.name }}
-                </td>
-                <td scope="row" class="px-6 py-4 p-20 text-white bg-gray-500/65 box-border border-3 border-black">
-                    {{ player.record }}
-                </td>
-            </tr>
-        </tbody>
-        {% endfor %}
-</table>
-{% endif %}
+    <div class="overflow-hidden rounded-xl shadow-lg border border-slate-700 bg-slate-900">
+        <h2 class="p-5 text-xl font-bold text-center bg-blue-600 text-white">Tournament Archive</h2>
+        <div class="divide-y divide-slate-800">
+            {% for row in data %}
+            <a href="/events?event={{ row.name }}" class="block px-6 py-4 text-center text-lg font-medium text-white hover:bg-blue-900/30 hover:text-blue-400 transition-all">
+                {{ row.name.split("-")[0].replace("_", " ") }}
+            </a>
+            {% endfor %}
+        </div>
+        <div class="flex justify-center bg-slate-800 p-4 gap-2">
+            {% for page in pages %}
+                <a href="/events?page={{ page }}" class="px-4 py-2 bg-slate-700 text-white rounded hover:bg-blue-600 transition-all">{{ page }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% elif tournament_data %}
+    <div class="overflow-x-auto rounded-xl shadow-lg border border-slate-700 bg-slate-900">
+        <table class="w-full text-white">
+            <caption class="p-5 text-xl font-bold text-center bg-blue-600">{{ request.args.get("event").split("-")[0].replace("_", " ") }}</caption>
+            <thead class="bg-slate-800 text-blue-300 uppercase text-xs">
+                <tr>
+                    <th class="px-6 py-3 border-b border-slate-700">Rank</th>
+                    <th class="px-6 py-3 border-b border-slate-700 text-left">Name</th>
+                    <th class="px-6 py-3 border-b border-slate-700">Record</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+                {% for player in tournament_data %}
+                <tr class="text-center hover:bg-slate-800/50">
+                    <td class="px-6 py-4 font-mono text-blue-400">{{ player.rank }}</td>
+                    <td class="px-6 py-4 text-left font-semibold">{{ player.name }}</td>
+                    <td class="px-6 py-4 text-gray-400">{{ player.record }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
 </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-</body>
-
-</html>
+{% endblock %}

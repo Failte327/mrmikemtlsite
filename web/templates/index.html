@@ -1,124 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MRMIKEMTL</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='dist/output.css')}}">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1991085633112598"
-     crossorigin="anonymous"></script>
-</head>
+{% block content %}
+<div class="flex flex-col lg:flex-row gap-8 items-stretch justify-center">
+    
+    <div class="flex-1 flex flex-col bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
+        <h3 class="text-xl font-bold text-white text-center py-4 bg-blue-600 uppercase tracking-wider">
+            Upcoming Tournaments
+        </h3>
+        
+        <div class="flex-grow divide-y divide-slate-800">
+            {% for tournament in upcoming_tournaments %}
+                {% if loop.index < 4 %}
+                <div class="p-6 text-center hover:bg-slate-800 transition-colors h-full flex flex-col justify-center">
+                    <p class="text-white font-semibold text-lg mb-1">
+                        {{ tournament[0] }}{{ tournament[1] }}
+                    </p>
+                    <p class="text-gray-400 text-sm mb-3 leading-relaxed">{{ tournament[2] }}</p>
+                    <a href="{{ 'https://' + tournament[3] }}" class="text-blue-400 hover:text-blue-300 font-medium underline break-all">
+                        {{ tournament[3] }}
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
 
-<body>
-    <nav class="px-2 sm:px-4 py-2.50">
-        <div class="container flex flex-wrap place-items-center justify-between mx-auto max-w-screen">
-            <a href="/" class="flex items-center">
-                <img src="../static/dist/beard_logo.jpg" class="h-6 mr-3 sm:h-9">
-                <span class="self-center text-xl font-semibold whitespace-nowrap">MRMIKEMTL</span>
-            </a>
-            <div class="flex md:order-2">
-                <button type="button"
-                    class="text-white bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"><a href="/login">Login</a></button>
-                <button data-collapse-toggle="navbar-cta" type="button"
-                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                    aria-controls="navbar-cta" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
+            {% if upcoming_tournaments|length == 0 %}
+            <div class="p-10 text-center text-gray-500 italic">
+                No upcoming tournaments scheduled. Check back soon!
             </div>
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-                <ul
-                    class="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
-                    <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 text-lg text-white bg-blue-700 rounded-sm md:bg-transparent md:text-purple-500 md:p-0"
-                            aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="/leaderboard"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">WC3 Leaderboard</a>
-                    </li>
-                    <li>
-                        <a href="/smf_league"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">SMF League</a>
-                    </li>
-                    <li>
-                        <a href="/events"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">Tournament Archive</a>
-                    </li>
-                    <li>
-                        <a href="/point_system"
-                            class="block py-2 pl-3 pr-4 text-lg text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-500 md:p-0">SMF Point System</a>
-                    </li>
-                </ul>
-            </div>
+            {% endif %}
         </div>
-    </nav>
-    <div class="bg-[url(cityscape.jpg)] bg-cover bg-center min-h-screen w-full max-w-screen place-items-center flex items-center justify-center">
-<div class="inline-flex max-w-screen">
-<div class="grid mb-8 border mx-auto p-7 w-100 sm:w-25 rounded-lg shadow-xs border-gray-700 md:mb-12 md:grid-cols-1 bg-gray-800">
-    <h3 class="text-xl font-semibold text-white text-center">Upcoming Tournaments</h3>
-    {% for tournament in upcoming_tournaments %}
-    {% if loop.index < 4 %}
-    <figure class="flex flex-col items-center justify-center p-8 text-center border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
-            <p class="my-4">{{ tournament[0] }}{{ tournament[1] }} <br><br> {{ tournament[2] }} <a href="{{ 'https://' + tournament[3] }}"class="text-blue-500">{{ tournament[3] }}</a></p>
-        </blockquote> 
-    </figure>
-    {% else %} 
-    <figure class="hidden flex flex-col items-center justify-center p-8 text-center border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
-            <p class="my-4">{{ tournament[0] }}{{ tournament[1] }} <br><br> {{ tournament[2] }} <a href="{{ 'https://' + tournament[3] }}"class="text-blue-500">{{ tournament[3] }}</a></p>
-        </blockquote> 
-    </figure> 
-    {% endif %}
-    {% endfor %}
-    {% if upcoming_tournaments|length > 3 %}
-    <a href="/upcoming" class="text-white underline text-center">See More</a>
-    {% endif %}
+        
+        {% if upcoming_tournaments|length > 3 %}
+        <div class="bg-slate-800 p-4 text-center mt-auto border-t border-slate-700">
+            <a href="/upcoming" class="text-white font-bold hover:text-blue-400 transition-colors">See More →</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="flex-1 flex flex-col bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
+        <h3 class="text-xl font-bold text-white text-center py-4 bg-blue-600 uppercase tracking-wider">
+            Community Links
+        </h3>
+        <div class="flex-grow divide-y divide-slate-800">
+            <a href="https://discord.gg/uxWJRgnDt5" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
+                <img src="../static/dist/discord.svg" class="h-8 w-8 mr-4">
+                <span class="text-white font-medium group-hover:text-blue-400">Show Match Friday Discord</span>
+            </a>
+            <a href="https://www.twitch.tv/mrmikemtl" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
+                <img src="../static/dist/twitch.svg" class="h-8 w-8 mr-4">
+                <span class="text-white font-medium group-hover:text-blue-400">MRMIKEMTL Twitch</span>
+            </a>
+            <a href="https://www.youtube.com/@mrmikemtl" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
+                <img src="../static/dist/youtube.svg" class="h-8 w-8 mr-4">
+                <span class="text-white font-medium group-hover:text-blue-400">MRMIKEMTL Youtube</span>
+            </a>
+            <a href="https://x.com/mrmikeMTL" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
+                <img src="../static/dist/x.svg" class="h-8 w-8 mr-4">
+                <span class="text-white font-medium group-hover:text-blue-400">MRMIKEMTL X</span>
+            </a>
+            <a href="https://www.tiktok.com/@showmatchfriday" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
+                <img src="../static/dist/tiktok.svg" class="h-8 w-8 mr-4">
+                <span class="text-white font-medium group-hover:text-blue-400">Show Match Friday Tiktok</span>
+            </a>
+        </div>
+    </div>
+
 </div>
-<div class="grid mb-8 border mx-auto p-7 w-100 sm:w-25 rounded-lg shadow-xs border-gray-700 md:mb-12 md:grid-cols-1 bg-gray-800">
-    <h3 class="text-xl font-semibold text-white text-center">Community Links</h3>
-    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
-            <img src="../static/dist/discord.svg" class="h-6 mr-3 sm:h-9"><a href="https://discord.gg/uxWJRgnDt5">Show Match Friday Discord</a>
-        </blockquote> 
-    </figure>
-    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
-            <img src="../static/dist/twitch.svg" class="h-6 mr-3 sm:h-9"><a href="https://www.twitch.tv/mrmikemtl">MRMIKEMTL Twitch</a>
-        </blockquote> 
-    </figure>
-    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
-            <img src="../static/dist/youtube.svg" class="h-6 mr-3 sm:h-9"><a href="https://www.youtube.com/@mrmikemtl">MRMIKEMTL Youtube</a>
-        </blockquote> 
-    </figure>
-    <figure class="flex flex-col p-8 border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
-            <img src="../static/dist/x.svg" class="h-6 mr-3 sm:h-9"><a href="https://x.com/mrmikeMTL">MRMIKEMTL X</a>
-        </blockquote> 
-    </figure>
-    <figure class="flex flex-col p-8  border-b rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e bg-gray-800 border-gray-700">
-        <blockquote class="max-w-2xl mb-4 text-white lg:mb-8 inline-flex">
-            <img src="../static/dist/tiktok.svg" class="h-6 mr-3 sm:h-9 self-center"><a href="https://www.tiktok.com/@showmatchfriday">Show Match Friday Tiktok</a>
-        </blockquote> 
-    </figure>
-</div>
-</div>
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-</body>
-
-</html>
+{% endblock %}
