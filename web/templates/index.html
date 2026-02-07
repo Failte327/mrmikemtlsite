@@ -38,32 +38,24 @@
     </div>
 
     <div class="flex-1 flex flex-col bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
-        <h3 class="text-xl font-bold text-white text-center py-4 bg-blue-600 uppercase tracking-wider">
-            Community Links
-        </h3>
-        <div class="flex-grow divide-y divide-slate-800">
-            <a href="https://discord.gg/uxWJRgnDt5" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
-                <img src="../static/dist/discord.svg" class="h-8 w-8 mr-4">
-                <span class="text-white font-medium group-hover:text-blue-400">Show Match Friday Discord</span>
-            </a>
-            <a href="https://www.twitch.tv/mrmikemtl" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
-                <img src="../static/dist/twitch.svg" class="h-8 w-8 mr-4">
-                <span class="text-white font-medium group-hover:text-blue-400">MRMIKEMTL Twitch</span>
-            </a>
-            <a href="https://www.youtube.com/@mrmikemtl" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
-                <img src="../static/dist/youtube.svg" class="h-8 w-8 mr-4">
-                <span class="text-white font-medium group-hover:text-blue-400">MRMIKEMTL Youtube</span>
-            </a>
-            <a href="https://x.com/mrmikeMTL" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
-                <img src="../static/dist/x.svg" class="h-8 w-8 mr-4">
-                <span class="text-white font-medium group-hover:text-blue-400">MRMIKEMTL X</span>
-            </a>
-            <a href="https://www.tiktok.com/@showmatchfriday" class="flex items-center p-6 hover:bg-slate-800 transition-colors group">
-                <img src="../static/dist/tiktok.svg" class="h-8 w-8 mr-4">
-                <span class="text-white font-medium group-hover:text-blue-400">Show Match Friday Tiktok</span>
-            </a>
+    <h3 class="text-xl font-bold text-white text-center py-4 bg-blue-600 uppercase tracking-wider">
+        Community News
+    </h3>
+    <div class="flex-grow divide-y divide-slate-800">
+        {% for post in posts %}
+        <div class="p-6">
+            <h4 class="text-blue-400 font-bold text-lg">{{ post.title }}</h4>
+            <p class="text-gray-400 text-sm mt-2 line-clamp-3">{{ post.content }}</p>
+            <div class="mt-4 flex justify-between items-center text-xs text-gray-500">
+                <span>By {{ post.author }}</span>
+                <span>{{ post.date[:10] }}</span>
+            </div>
         </div>
+        {% else %}
+        <div class="p-10 text-center text-gray-500 italic">No news yet.</div>
+        {% endfor %}
     </div>
+</div>
 
 </div>
 {% endblock %}

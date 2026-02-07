@@ -14,27 +14,57 @@
                 <img src="../static/dist/beard_logo.jpg" class="h-8 mr-3 rounded-full">
                 <span class="self-center text-xl font-bold tracking-tight text-gray-900">MRMIKEMTL</span>
             </a>
-            <div class="flex md:order-2">
-                <a href="/login" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</a>
-                <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                </button>
+            <div class="flex md:order-2 items-center">
+                {% if current_user.is_authenticated %}
+                    <div class="flex items-center gap-4 mr-4">
+                        <span class="text-blue-600 font-bold hidden sm:block">
+                            Welcome, {{ current_user.username }}
+                        </span>
+                        <a href="{{ url_for('logout') }}" 
+                        class="text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors">
+                            Logout
+                        </a>
+                    </div>
+                {% else %}
+                    <a href="{{ url_for('login') }}" 
+                    class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5">
+                        Login
+                    </a>
+                {% endif %}
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                 <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
                     <li><a href="/" class="block py-2 px-3 {% if request.path == '/' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">Home</a></li>
                     <li><a href="/leaderboard" class="block py-2 px-3 {% if request.path == '/leaderboard' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">SMF Leaderboard</a></li>
                     <li><a href="/smf_league" class="block py-2 px-3 {% if request.path == '/smf_league' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">SMF League</a></li>
-                    <li><a href="/events" class="block py-2 px-3 {% if request.path == '/events' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">Archive</a></li>
+                    <li><a href="/events" class="block py-2 px-3 {% if request.path == '/events' %}text-blue-600 font-bold{% else %}text-gray-700 hover:text-blue-600{% endif %} md:p-0">Events Archive</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="bg-[url(cityscape.jpg)] bg-cover bg-fixed bg-center min-h-screen w-full flex flex-col items-center py-10">
-        <div class="w-full max-w-7xl px-4">
-            {% block content %}{% endblock %}
-        </div>
+    <div class="bg-slate-950 bg-[url('cityscape.jpg')] bg-cover bg-fixed bg-center min-h-screen w-full flex flex-col items-center pt-10">
+    <div class="w-full max-w-7xl px-4 mb-auto"> {% block content %}{% endblock %}
+    </div>
+
+    <footer class="w-full bg-slate-950 border-t border-slate-800 py-6 mt-12">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center opacity-70">
+                    <img src="../static/dist/beard_logo.jpg" class="h-6 mr-2 rounded-full">
+                    <span class="text-sm font-bold text-white uppercase tracking-tight">MRMIKEMTL</span>
+                </div>
+                
+                <div class="flex gap-5">
+                    <a href="https://discord.gg/uxWJRgnDt5" class="hover:scale-110 transition-transform"><img src="../static/dist/discord.svg" class="h-5 w-5 invert"></a>
+                    <a href="https://www.twitch.tv/mrmikemtl" class="hover:scale-110 transition-transform"><img src="../static/dist/twitch.svg" class="h-5 w-5 invert"></a>
+                    <a href="https://www.youtube.com/@mrmikemtl" class="hover:scale-110 transition-transform"><img src="../static/dist/youtube.svg" class="h-5 w-5 invert"></a>
+                    <a href="https://x.com/mrmikeMTL" class="hover:scale-110 transition-transform"><img src="../static/dist/x.svg" class="h-5 w-5 invert"></a>
+                    <a href="https://www.tiktok.com/@showmatchfriday" class="hover:scale-110 transition-transform"><img src="../static/dist/tiktok.svg" class="h-5 w-5 invert"></a>
+                </div>
+                
+                <p class="text-gray-600 text-[10px] uppercase tracking-widest">© 2026 Show Match Friday</p>
+            </div>
+        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
