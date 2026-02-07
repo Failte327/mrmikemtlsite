@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy
 import json
 
 app = Flask(__name__)
-app.secret_key = 'jelly-castle-before' # Added secret key for flash messages
-engine = sqlalchemy.create_engine("sqlite:///mrmikemtlsite/smf_tournaments_database.sqlite3")
+app.secret_key = 'jelly-castle-before'
+engine = sqlalchemy.create_engine("sqlite:///../smf_tournaments_database.sqlite3")
 dbsession = engine.connect()
 
 @app.route("/")
@@ -13,7 +13,7 @@ dbsession = engine.connect()
 def index():
     upcoming_tournaments = []
     try:
-        with open("mrmikemtlsite/upcoming_tournaments.txt", "r") as upcoming_file:
+        with open("../upcoming_tournaments.txt", "r") as upcoming_file:
             lines = upcoming_file.readlines()
             for i in lines:
                 if i.strip() != "":
@@ -31,8 +31,11 @@ def index():
         
     while len(upcoming_tournaments) < 3:
         upcoming_tournaments.append(["", "", "", ""])
+    
+    # Fetch latest 5 posts
+    posts = dbsession.execute(sqlalchemy.text("SELECT * FROM posts ORDER BY date DESC LIMIT 5")).all()
 
-    return render_template("index.html", upcoming_tournaments=upcoming_tournaments)
+    return render_template("index.html", upcoming_tournaments=upcoming_tournaments, posts=posts)
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -154,9 +157,15 @@ def signup():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
 
-        # Check existing
-        existing_email = dbsession.exec_driver_sql(f"SELECT email FROM users WHERE email = '{email}';").one_or_none()
-        existing_user = dbsession.exec_driver_sql(f"SELECT username FROM users WHERE username = '{username}';").one_or_none()
+        existing_email = dbsession.execute(
+            sqlalchemy.text("SELECT email FROM users WHERE email = :email"), 
+            {"email": email}
+        ).one_or_none()
+        
+        existing_user = dbsession.execute(
+            sqlalchemy.text("SELECT username FROM users WHERE username = :username"), 
+            {"username": username}
+        ).one_or_none()
 
         if password != confirm_password:
             flash("Passwords do not match!")
@@ -171,7 +180,12 @@ def signup():
             return redirect(url_for('signup'))
 
         hashed_pw = generate_password_hash(password, method='pbkdf2:sha256')
-        dbsession.exec_driver_sql(f"INSERT INTO users (username, email, password) VALUES ('{username}', '{email}', '{hashed_pw}');")
+        
+        # Secure Insert
+        dbsession.execute(
+            sqlalchemy.text("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"),
+            {"username": username, "email": email, "password": hashed_pw}
+        )
         dbsession.commit()
         
         flash("Account created! Please login.")
@@ -185,16 +199,35 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        user = dbsession.exec_driver_sql(f"SELECT * FROM users WHERE email = '{email}';").one_or_none()
+        result = dbsession.execute(
+            sqlalchemy.text("SELECT id, username, password FROM users WHERE email = :email"),
+            {"email": email}
+        ).mappings().one_or_none()
 
-        if user and check_password_hash(user[3], password): # Assuming password is the 4th column
-            flash(f"Welcome back!")
-            return redirect(url_for('index'))
+        if result:
+            if check_password_hash(result['password'], password):
+                session.clear()
+                session['user_id'] = result['id']
+                session['username'] = result['username']
+                
+                session.modified = True
+                
+                flash(f"Login successful! Welcome {result['username']}")
+                return redirect(url_for('index'))
+            else:
+                flash("Invalid password.")
         else:
-            flash("Invalid email or password.")
-            return redirect(url_for('login'))
+            flash("No account found with that email.")
+            
+        return redirect(url_for('login'))
 
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash("You have been logged out.")
+    return redirect(url_for('index'))
 
 @app.route("/point_system")
 def point_system():
@@ -204,7 +237,7 @@ def point_system():
 def upcoming():
     upcoming_tournaments = []
     try:
-        with open("mrmikemtlsite/upcoming_tournaments.txt", "r") as upcoming_file:
+        with open("../upcoming_tournaments.txt", "r") as upcoming_file:
             lines = upcoming_file.readlines()
             for i in lines:
                 if i.strip() != "":
@@ -219,6 +252,28 @@ def upcoming():
 @app.route("/smf_league")
 def smf_league():
     return render_template("smf_league.html")
+
+@app.route('/create-post', methods=['GET', 'POST'])
+def create_post():
+    # Only allow a specific user (e.g., 'mrmikemtl') to post
+    if not session.get('user_id') or session.get('username') != 'mrmikemtl':
+        flash("You do not have permission to access this page.")
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        title = request.form.get('title')
+        content = request.form.get('content')
+        author = session.get('username')
+
+        dbsession.execute(
+            sqlalchemy.text("INSERT INTO posts (title, content, author) VALUES (:title, :content, :author)"),
+            {"title": title, "content": content, "author": author}
+        )
+        dbsession.commit()
+        flash("Post created successfully!")
+        return redirect(url_for('index'))
+
+    return render_template('create_post.html')
 
 if __name__ == '__main__':
     app.run()
