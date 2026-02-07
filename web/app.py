@@ -2,18 +2,39 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy
 import json
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
 app.secret_key = 'jelly-castle-before'
-engine = sqlalchemy.create_engine("sqlite:///../smf_tournaments_database.sqlite3")
+engine = sqlalchemy.create_engine("sqlite:///mrmikemtlsite/smf_tournaments_database.sqlite3")
 dbsession = engine.connect()
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login' # Tells @login_required where to redirect guests
+
+class User(UserMixin):
+    def __init__(self, id, username):
+        self.id = id
+        self.username = username
+
+@login_manager.user_loader
+def load_user(user_id):
+    # Fetch user from DB to populate current_user
+    result = dbsession.execute(
+        sqlalchemy.text("SELECT id, username FROM users WHERE id = :id"),
+        {"id": user_id}
+    ).mappings().one_or_none()
+    
+    if result:
+        return User(id=result['id'], username=result['username'])
+    return None
 
 @app.route("/")
 @app.route("/index")
 def index():
     upcoming_tournaments = []
     try:
-        with open("../upcoming_tournaments.txt", "r") as upcoming_file:
+        with open("mrmikemtlsite/upcoming_tournaments.txt", "r") as upcoming_file:
             lines = upcoming_file.readlines()
             for i in lines:
                 if i.strip() != "":
@@ -195,37 +216,35 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
         result = dbsession.execute(
-            sqlalchemy.text("SELECT id, username, password FROM users WHERE email = :email"),
+            sqlalchemy.text(f"SELECT id, username, password FROM users WHERE email = '{email}';"),
             {"email": email}
         ).mappings().one_or_none()
 
-        if result:
-            if check_password_hash(result['password'], password):
-                session.clear()
-                session['user_id'] = result['id']
-                session['username'] = result['username']
-                
-                session.modified = True
-                
-                flash(f"Login successful! Welcome {result['username']}")
-                return redirect(url_for('index'))
-            else:
-                flash("Invalid password.")
-        else:
-            flash("No account found with that email.")
+        if result and check_password_hash(result['password'], password):
+            user_obj = User(id=result['id'], username=result['username'])
             
+            login_user(user_obj) 
+            
+            flash(f"Login successful! Welcome {user_obj.username}")
+            return redirect(url_for('index'))
+        
+        flash("Invalid email or password.")
         return redirect(url_for('login'))
 
     return render_template('login.html')
 
 @app.route('/logout')
+@login_required
 def logout():
-    session.clear()
+    logout_user() # Clears the session and cookie automatically
     flash("You have been logged out.")
     return redirect(url_for('index'))
 
@@ -237,7 +256,7 @@ def point_system():
 def upcoming():
     upcoming_tournaments = []
     try:
-        with open("../upcoming_tournaments.txt", "r") as upcoming_file:
+        with open("mrmikemtlsite/upcoming_tournaments.txt", "r") as upcoming_file:
             lines = upcoming_file.readlines()
             for i in lines:
                 if i.strip() != "":
@@ -253,10 +272,13 @@ def upcoming():
 def smf_league():
     return render_template("smf_league.html")
 
-@app.route('/create-post', methods=['GET', 'POST'])
+@app.route('/create_post', methods=['GET', 'POST'])
+@login_required
 def create_post():
-    # Only allow a specific user (e.g., 'mrmikemtl') to post
-    if not session.get('user_id') or session.get('username') != 'mrmikemtl':
+    # Only allow admins to post
+    print(current_user.username)
+    print(current_user.is_authenticated)
+    if not current_user.is_authenticated or current_user.username not in ['reklewt', 'mrmikemtl']:
         flash("You do not have permission to access this page.")
         return redirect(url_for('index'))
 
