@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy
 import json
@@ -169,6 +169,19 @@ def events():
                 final_data.append({"rank": rank, "name": name, "record": "Unknown"})
         
         return render_template("events.html", tournament_data=final_data)
+    
+
+@app.route("/news")
+def news():
+    posts = dbsession.execute(sqlalchemy.text("SELECT * FROM posts ORDER BY date;")).all()
+
+    news_post = request.args.get("post")
+    if not news_post:
+        return render_template("news.html", posts=posts)
+    else:
+        for post in posts:
+            if news_post == post.title:
+                return render_template("news.html", news_post=post)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -276,8 +289,6 @@ def smf_league():
 @login_required
 def create_post():
     # Only allow admins to post
-    print(current_user.username)
-    print(current_user.is_authenticated)
     if not current_user.is_authenticated or current_user.username not in ['reklewt', 'mrmikemtl']:
         flash("You do not have permission to access this page.")
         return redirect(url_for('index'))
@@ -285,7 +296,7 @@ def create_post():
     if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('content')
-        author = session.get('username')
+        author = current_user.username
 
         dbsession.execute(
             sqlalchemy.text("INSERT INTO posts (title, content, author) VALUES (:title, :content, :author)"),
