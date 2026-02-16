@@ -10,9 +10,6 @@ python3 add_missing_tournament_ids.py
 echo "Running missing user ids script..."
 python3 add_missing_user_ids.py
 
-echo "Running points reset script..."
-python3 reset_points.py
-
 echo "Running points calculation script"
 python3 calculate_points.py
 
