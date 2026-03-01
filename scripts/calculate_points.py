@@ -6,7 +6,7 @@ import sqlalchemy
 dbsession = sqlalchemy.create_engine("sqlite:///../smf_tournaments_database.sqlite3").connect()
 
 # CALCULATE POINTS CODE
-query = dbsession.exec_driver_sql(f"SELECT name, participants FROM tournaments2026;")
+query = dbsession.exec_driver_sql(f"SELECT name, participants FROM tournaments2026 WHERE points_calculated = 0;")
 for record in query.all():
     participants = ast.literal_eval(record.participants)
     print(f"Calculating results for {record.name}...")
@@ -35,3 +35,5 @@ for record in query.all():
             new_val = old_val.total_points + added_points
             dbsession.exec_driver_sql(f"UPDATE participants2026 set total_points = {new_val} WHERE name = '{name}';")
             dbsession.commit()
+    dbsession.exec_driver_sql(f"UPDATE tournaments2026 SET points_calculated = 1 WHERE name = '{record.name}';")
+    dbsession.commit()
